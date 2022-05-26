@@ -112,7 +112,7 @@
                 <img src="{{ asset('img/admin/users/default.jpg') }}" alt="user-image" class="rounded-circle">
                 <span class="pro-user-name ml-1">
 
-                    {{--  {{ Auth::guard('admin')->user()->nombres }} <i class="mdi mdi-chevron-down"></i>  --}}
+                    {{ Auth::guard('admin')->user()->nombre }} <i class="mdi mdi-chevron-down"></i>
 
                 </span>
             </a>
@@ -125,16 +125,16 @@
                 </div>
 
                 <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                {{--  <a href="javascript:void(0);" class="dropdown-item notify-item">
                     <i class="fe-user"></i>
                     <span>Mi cuenta</span>
-                </a>
+                </a>  --}}
 
                 <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                {{--  <a href="javascript:void(0);" class="dropdown-item notify-item">
                     <i class="fe-settings"></i>
                     <span>Configuraciones</span>
-                </a>
+                </a>  --}}
 
                 <!-- item-->
                 {{--  <a href="javascript:void(0);" class="dropdown-item notify-item">
@@ -152,7 +152,7 @@
                     <i class="fe-log-out"></i>
                     <span>Cerrar sesión</span>
                 </a>
-                <form id="logout-form" action="{{ url('logout') }}" method="POST" class="d-none">
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
                 </form>
 
@@ -170,12 +170,12 @@
     <div class="logo-box">
         <a href="{{url('admin/panel')}}" class="logo text-center">
             <span class="logo-lg y-1">
-                {{--  <img src="{{ asset('img/logo-light2.svg') }}" alt="" height="38">  --}}
-                <h2 style="color: #b1c4da;">PANEL</h2>    
+                {{--  <img src="{{asset ('img/logo1.png')}}" alt="" height="38">  --}}
+                <h2 style="color: #b1c4da;">Santa Rosa</h2>
             </span>
             <span class="logo-sm">
                 {{--  <img src="{{ asset('img/logo-sm.svg') }}" alt="" height="25">  --}}
-                <h2 style="color: #b1c4da;">PL</h2>    
+                <h2 style="color: #b1c4da;">SR</h2>
             </span>
         </a>
     </div>

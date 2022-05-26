@@ -41,7 +41,7 @@
                             <p> <a href="#" @click.prevent="forgotPassword()" class="text-muted ml-1">¿Olvidaste tu contraseña?</a></p>
                         </div> <!-- end col -->
                     </div>
-                    
+
                 </div> <!-- end card-body -->
             </div>
             <!-- end card -->
@@ -74,7 +74,7 @@ export default {
     methods:{
         login(){
             this.loading = true
-            let url = this.baseUrl+'/login'
+            let url = this.baseUrl+'/admin/login'
 
             axios.post(url,{
                 'email': this.fillFormLogin.email,
@@ -85,7 +85,7 @@ export default {
                 this.alertInfo = true
                 this.generalMessage = 'Redireccionando ....'
                 this.showForm = false
-                location.href = base_url+'/panel'
+                location.href = base_url+'/admin/panel'
             })
             .catch(error =>{
                 if(error.response.status == 429) this.manyRequests();
