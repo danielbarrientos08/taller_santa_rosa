@@ -38,7 +38,9 @@ Vue.component('apexchart', VueApexCharts)
 // componentes del admin template
 /**Componente login */
 Vue.component('login-admin', require('./pages/admin/Login.vue').default);
+Vue.component('login-web', require('./pages/web/Login.vue').default);
 Vue.component('estudiante-index', require('./pages/admin/estudiante/Index.vue').default);
+Vue.component('web-matricula-index', require('./pages/web/matricula/Index.vue').default);
 
 
 
