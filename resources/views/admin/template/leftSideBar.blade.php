@@ -11,10 +11,16 @@
                     </a>
                 </li>
 
-                 <li>
+                <li>
                     <a href="{{ url('admin/estudiantes') }}">
                         <i class="la la-user"></i>
                         <span> Estudiantes </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url('admin/estudiantes/cargaMasiva') }}">
+                        <i class="la la-user"></i>
+                        <span> Carga de estudiantes </span>
                     </a>
                 </li>
 

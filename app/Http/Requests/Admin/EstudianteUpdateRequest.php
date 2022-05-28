@@ -25,13 +25,13 @@ class EstudianteUpdateRequest extends FormRequest
     {
         return [
             'documento'         => 'bail|required|max:15|unique:estudiante,documento,'.$this->request->all()['estudiante_id'].',estudiante_id',
-            'codigo_estudiante' => 'bail|required|digits:14|unique:estudiante,codigo_estudiante,'.$this->request->all()['estudiante_id'].',estudiante_id',
+            // 'codigo_estudiante' => 'bail|required|digits:14|unique:estudiante,codigo_estudiante,'.$this->request->all()['estudiante_id'].',estudiante_id',
             'apellido_paterno'  => 'bail|required|max:40',
             'apellido_materno'  => 'bail|required|max:40',
             'nombres'           => 'bail|required|max:40',
             'fecha_nacimiento'  => 'bail|required|date',
-            'estado_matricula'  => 'bail|required',
-            'sexo'              => 'bail|required|in:Mujer,Varón',
+            // 'estado_matricula'  => 'bail|required',
+            'nivel'              => 'bail|required|in:INICIAL,PRIMARIA,SECUNDARIA',
             'grado'             => 'bail|required|in:PRIMERO,SEGUNDO,TERCERO,CUARTO,QUINTO',
             'seccion'           => 'bail|required',
         ];

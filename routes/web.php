@@ -35,11 +35,12 @@ Route::middleware(['auth'])->group(function ()
             return redirect('matriculas');
         });
         Route::get('/matriculas',[App\Http\Controllers\Web\MatriculaController::class, 'index']);
-    /**matricula */
+        /**matricula */
         Route::get('/matriculas/listar', [App\Http\Controllers\Web\MatriculaController::class, 'listar']);
         Route::post('/matriculas/crear', [App\Http\Controllers\Web\MatriculaController::class, 'crear']);
         Route::put('/matriculas/actualizar', [App\Http\Controllers\Web\MatriculaController::class, 'actualizar']);
         Route::delete('/matriculas/eliminar/{id}', [App\Http\Controllers\Web\MatriculaController::class, 'eliminar']);
+        Route::get('/matriculas/vacantes/{taller_id}', [App\Http\Controllers\Web\MatriculaController::class, 'vacantes']);
 
     });
 
@@ -63,7 +64,7 @@ Route::prefix('admin')->group(function ()
 
 
         /**Carga masicva de estudiantes */
-        Route::get('/datos', [App\Http\Controllers\Web\DatosController::class, 'index']);
-        Route::post('/datos/cargaMasiva', [App\Http\Controllers\Web\DatosController::class, 'cargaMasiva']);
+        Route::get('/estudiantes/cargaMasiva', [App\Http\Controllers\Admin\DatosController::class, 'index']);
+        Route::post('/estudiantes/cargaMasiva', [App\Http\Controllers\Admin\DatosController::class, 'cargaMasiva']);
     });
 });

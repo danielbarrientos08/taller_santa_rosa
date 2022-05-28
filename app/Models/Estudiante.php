@@ -26,8 +26,7 @@ class Estudiante  extends Authenticatable
         'fecha_registro' => 'datetime:Y-m-d H:i:s',
         'fecha_actualizacion' => 'datetime:Y-m-d H:i:s',
         'fecha_nacimiento' => 'datetime:Y-m-d',
-        'documento' => 'string',
-        'codigo_estudiante' => 'string'
+        'documento' => 'string'
     ];
 
      //establecer el campo a comparar en el attemp auth
