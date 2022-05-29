@@ -69,6 +69,11 @@
                                         </div>
                                     </template>
                                 </fieldset>
+                                <hr>
+                               <template v-if="listaMatriculas.length">
+                                    <a href="#" @click="descargarConstancia()" >Decargar Constancia </a>
+                               </template>
+
                             </div><!-- end table-responsive -->
 
                         </div> <!-- end col -->
@@ -190,7 +195,13 @@ export default
             // this.pagination.currentPage = page;
             // this.listarMatriculas(page)
         },
-       registrarMatricula() {
+
+        descargarConstancia() {
+            console.log('raaaa');
+            window.location.href = base_url+'/matriculas/constancia'
+        },
+
+        registrarMatricula() {
             this.loading = true
             let url = base_url +'/matriculas/crear'
 

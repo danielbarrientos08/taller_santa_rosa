@@ -8,6 +8,7 @@ use App\Models\Matricula;
 use App\Models\Periodo;
 use App\Models\Estudiante;
 use App\Models\Taller;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class MatriculaController extends Controller
 {
@@ -75,7 +76,20 @@ class MatriculaController extends Controller
         }
     }
 
+    public function constancia()
+    {
+        $periodo = Periodo::where('estado','Activo')->first();
+        $estudiante = Estudiante::find(\Auth::user()->estudiante_id);
+        $matriculas = Matricula::where('estudiante_id',\Auth::user()->estudiante_id)->where('periodo_id',$periodo->periodo_id)->get();
 
+
+        $view = \View::make('pdf.constancia_matricula',compact('estudiante','matriculas'))->render();
+  
+        $pdf  = PDF::loadHTML($view)->setPaper('a5', 'landscape')->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif', 'enable_remote' => false]);
+
+        // $pdf->loadHTML($view);
+        return $pdf->download('Constancia-matricula-'.$estudiante->documento.'.pdf');
+    }
 
     public function eliminar(Request $request,$matricula_id )
     {

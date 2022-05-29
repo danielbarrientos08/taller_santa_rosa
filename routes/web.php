@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function ()
         });
         Route::get('/matriculas',[App\Http\Controllers\Web\MatriculaController::class, 'index']);
         /**matricula */
+        Route::get('/matriculas/constancia', [App\Http\Controllers\Web\MatriculaController::class, 'constancia']);
         Route::get('/matriculas/listar', [App\Http\Controllers\Web\MatriculaController::class, 'listar']);
         Route::post('/matriculas/crear', [App\Http\Controllers\Web\MatriculaController::class, 'crear']);
         Route::put('/matriculas/actualizar', [App\Http\Controllers\Web\MatriculaController::class, 'actualizar']);
