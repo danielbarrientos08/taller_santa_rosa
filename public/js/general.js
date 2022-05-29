@@ -17,7 +17,7 @@ const toastr_options = {
   };
 
 
-function evaluateHttpResponse(status)
+function evaluateHttpResponse(status,message='')
 {
     switch (status) {
         case 0:
@@ -75,7 +75,7 @@ function evaluateHttpResponse(status)
         case 500:
             Swal.fire(
                 'Error 500',
-                'Error no controlado.',
+                message,
                 'warning'
             )
 

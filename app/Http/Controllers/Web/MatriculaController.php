@@ -69,6 +69,10 @@ class MatriculaController extends Controller
                 $periodo = Periodo::where('estado','Activo')->first();
                 $taller = Taller::findOrFail($request->taller_id);
 
+                $matricula = Matricula::where('estudiante_id',$estudiante->estudiante_id)->where('cod_taller',$taller->cod_taller)->first();
+                if($matricula){
+                    abort(400,'Usted ya se encuentra matriculada en ese taller.');
+                }
                 $matricula   = new Matricula();
                 $matricula->taller_id      = $taller->taller_id;
                 $matricula->cod_taller      = $taller->cod_taller;
@@ -86,7 +90,7 @@ class MatriculaController extends Controller
                 {
                     DB::commit();
                     return response()->json([
-                        'response'=> $matricula
+                        'response'=> 'success'
                     ],201);
                 }
                 else{

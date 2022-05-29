@@ -220,8 +220,8 @@ export default
 
             })
             .catch(error =>{
-
-                evaluateHttpResponse(error.response.status)
+                console.log('el error es:',error.response.data.message);
+                evaluateHttpResponse(error.response.status, error.response.data.message)
 
                  if(error.response.status == 400){
                     let mensaje = error.response.data.response
