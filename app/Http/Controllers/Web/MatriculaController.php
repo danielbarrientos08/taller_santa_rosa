@@ -73,31 +73,27 @@ class MatriculaController extends Controller
                 if($matricula){
                     abort(400,'Usted ya se encuentra matriculada en ese taller.');
                 }
-                $matricula   = new Matricula();
-                $matricula->taller_id      = $taller->taller_id;
-                $matricula->cod_taller      = $taller->cod_taller;
-                $matricula->estudiante_id  = $estudiante->estudiante_id;
-                $matricula->ducumento_estudiante   = $estudiante->documento;
-                $matricula->periodo_id   = $periodo->periodo_id;
-                $matricula->nivel   = $estudiante->nivel;
-                $matricula->grado   = $estudiante->grado;
-                $matricula->seccion   = $estudiante->seccion;
-                $matricula->save();
-                //verificar cantidad de vacantes despues de la insercion
-                $vancatesDisponibles = $this->vacantesDisponibles($request->taller_id);
 
-                if( $vancatesDisponibles >= 0)
+                $vancatesDisponibles = $this->vacantesDisponibles($request->taller_id);
+                if( $vancatesDisponibles > 0)
                 {
+                    $matricula   = new Matricula();
+                    $matricula->taller_id      = $taller->taller_id;
+                    $matricula->cod_taller      = $taller->cod_taller;
+                    $matricula->estudiante_id  = $estudiante->estudiante_id;
+                    $matricula->ducumento_estudiante   = $estudiante->documento;
+                    $matricula->periodo_id   = $periodo->periodo_id;
+                    $matricula->nivel   = $estudiante->nivel;
+                    $matricula->grado   = $estudiante->grado;
+                    $matricula->seccion   = $estudiante->seccion;
+                    $matricula->save();
                     DB::commit();
                     return response()->json([
                         'response'=> 'success'
                     ],201);
                 }
                 else{
-                    DB::rollback();
-                    return response()->json([
-                        'response'=> 'No hay vacantes disponibles para el taller: '.$taller->nombre
-                    ],400);
+                    abort(400,'Ya no hay cupos disponibles');
                 }
 
 
