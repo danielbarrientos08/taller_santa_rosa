@@ -130,7 +130,7 @@ hr{
         </div>
     </div>
     <div class="footer">
-
+        <small style="margin-left: 50px;"> Fecha de descarga: {{ date('d/m/Y H:i:s') }} </small>
     </div>
 </body>
 </html>
