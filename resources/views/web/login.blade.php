@@ -9,7 +9,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="{{ asset('img/logo-sr.ico') }}">
         <title>TALLERES 2022</title>
+
         <!-- App css -->
         <link href="{{ asset('admin_template/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('admin_template/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
