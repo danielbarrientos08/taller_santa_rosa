@@ -33,7 +33,7 @@
                                         <div class="form-row">
 
                                             <div class="form-group col-3">
-                                                <label for="inputZip" class="col-form-label">Nombre/Dni/código</label>
+                                                <label for="inputZip" class="col-form-label">Nombre/Dni</label>
                                                 <input  type="text" class="form-control" placeholder="Ingrese nombres o apellidos" v-model="datosFormularioBusqueda.nombres">
                                             </div>
                                             <div class="form-group col-2">
@@ -75,12 +75,10 @@
                                         <table class="table table-condensed table-sm table-hover mb-0" v-loading="loading"  element-loading-text="Cargando...">
                                             <thead class="thead-dark">
                                                 <th class="text-light">DNI/CE</th>
-                                                <th class="text-light">Código</th>
                                                 <th class="text-light">Apellidos y Nombres</th>
-                                                <th class="text-light">Sexo</th>
+                                                <th class="text-light">Nivel</th>
                                                 <th class="text-light">Grado</th>
                                                 <th class="text-light">Sección</th>
-                                                <th class="text-light">Estado Matrícula</th>
                                                 <th class="text-light">Editar</th>
                                                 <th class="text-light">Eliminar</th>
 
@@ -88,12 +86,10 @@
                                             <tbody>
                                                 <tr v-for="(item, index) in listaEstudiantes" :key="index">
                                                     <td v-text="item.documento "></td>
-                                                    <td v-text="item.codigo_estudiante"></td>
                                                     <td v-text="item.apellido_paterno +' '+ item.apellido_materno +' '+item.nombres "></td>
-                                                    <td v-text="item.sexo"></td>
+                                                    <td v-text="item.nivel"></td>
                                                     <td v-text="item.grado"></td>
                                                     <td v-text="item.seccion"></td>
-                                                    <td v-text="item.estado_matricula"></td>
                                                     <td>
                                                         <button class="btn btn-outline-primary btn-xs waves-effect waves-light" @click.prevent="editarEstudiante(item.estudiante_id,index)" title="Editar">
                                                             <i class="fe-edit"></i>

@@ -4,10 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class Estudiante extends Model
+class Estudiante  extends Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
+
     protected $table      = 'estudiante';
     public $incrementing  = true;
     public $timestamps    = true;
@@ -21,10 +26,13 @@ class Estudiante extends Model
         'fecha_registro' => 'datetime:Y-m-d H:i:s',
         'fecha_actualizacion' => 'datetime:Y-m-d H:i:s',
         'fecha_nacimiento' => 'datetime:Y-m-d',
-        'documento' => 'string',
-        'codigo_estudiante' => 'string'
+        'documento' => 'string'
     ];
 
+     //establecer el campo a comparar en el attemp auth
+     public function getAuthPassword() {
+        return $this->documento;
+    }
     /**Scopes */
     public function scopeGrado($query,$grado)
     {

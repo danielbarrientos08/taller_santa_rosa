@@ -20,7 +20,7 @@ class EstudianteController extends Controller
     {
         if($request->ajax())
         {
-            $estudiantes = Estudiante::WhereRaw("CONCAT_WS(' ',apellido_paterno,apellido_materno,nombres,documento,codigo_estudiante) LIKE ?", ['%'.$request->nombres.'%'])
+            $estudiantes = Estudiante::WhereRaw("CONCAT_WS(' ',apellido_paterno,apellido_materno,nombres,documento) LIKE ?", ['%'.$request->nombres.'%'])
                                         ->grado($request->grado)->grado($request->nivel)->paginate(10);
 
             return response()->json([
@@ -30,22 +30,20 @@ class EstudianteController extends Controller
     }
 
     public function crear(EstudianteCreateRequest $request )
-    {   
+    {
         if($request->ajax())
         {
             unset($request['estudiante_id']);
-         
+
             $estudiante                     = new Estudiante();
-            $estudiante->documento          = $request->documento; 
-            $estudiante->codigo_estudiante  = $request->codigo_estudiante; 
-            $estudiante->nombres            = Str::upper($request->nombres); 
-            $estudiante->apellido_paterno   = Str::upper($request->apellido_paterno); 
-            $estudiante->apellido_materno   = Str::upper($request->apellido_materno); 
-            $estudiante->sexo               = $request->sexo; 
-            $estudiante->fecha_nacimiento   = $request->fecha_nacimiento; 
-            $estudiante->grado              = $request->grado; 
-            $estudiante->seccion            = $request->seccion; 
-            $estudiante->estado_matricula   = Str::upper($request->estado_matricula); 
+            $estudiante->documento          = $request->documento;
+            $estudiante->nombres            = Str::upper($request->nombres);
+            $estudiante->apellido_paterno   = Str::upper($request->apellido_paterno);
+            $estudiante->apellido_materno   = Str::upper($request->apellido_materno);
+            $estudiante->sexo               = $request->sexo;
+            $estudiante->fecha_nacimiento   = $request->fecha_nacimiento;
+            $estudiante->grado              = $request->grado;
+            $estudiante->seccion            = $request->seccion;
             $estudiante->save();
 
             return response()->json([
@@ -93,5 +91,5 @@ class EstudianteController extends Controller
         }
     }
 
-    
+
 }

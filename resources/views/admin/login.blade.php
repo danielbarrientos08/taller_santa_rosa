@@ -14,6 +14,10 @@
         <link href="{{ asset('admin_template/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('admin_template/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('admin_template/css/app.min.css') }}" rel="stylesheet" type="text/css" />
+        <!-- import CSS -->
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
     </head>
 
     <body class="authentication-bg authentication-bg-pattern" style="background: #093028;  /* fallback for old browsers */

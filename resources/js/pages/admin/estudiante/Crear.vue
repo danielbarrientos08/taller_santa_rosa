@@ -18,14 +18,14 @@
                                 <input  type="text" class="form-control" placeholder="Ingrese nombres " v-model="datosFormulario.documento" required maxlength="14">
                                 <small v-if="mensajeValidacion.documento != '' " v-text="mensajeValidacion.documento" class="text-danger"></small>
                             </div>
-                            <div class="form-group col-md-6">
+                            <!-- <div class="form-group col-md-6">
                                 <label for="inputCity" class="col-form-label">Código</label>
                                 <input type="text" placeholder="Ingrese apellido" class="form-control" v-model="datosFormulario.codigo_estudiante" required maxlength="14" minlength="14">
                                 <small v-if="mensajeValidacion.codigo_estudiante != '' " v-text="mensajeValidacion.codigo_estudiante" class="text-danger"></small>
-                            </div>
-                           
+                            </div> -->
+
                         </div>
-                      
+
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label  class="col-form-label">Nombre</label>
@@ -44,29 +44,30 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6">
-                                    <label  class="col-form-label">Sexo</label>
-                                    <el-select v-model="datosFormulario.sexo" placeholder="Seleccione"  style="width:100%;" required>
-                                        <el-option
-                                            v-for="item in listaSexo"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value"
-                                        >
-                                        </el-option>
-                                    </el-select>
-                                    <small v-if="mensajeValidacion.estado != '' " v-text="mensajeValidacion.estado" class="text-danger"></small>
-                            </div>
-                            <div class="form-group col-md-6">
+
+                            <div class="form-group col-md-12">
                                 <label  class="col-form-label">Fecha de nacimiento</label>
                                 <input type="date" class="form-control" v-model="datosFormulario.fecha_nacimiento" required>
                                 <small v-if="mensajeValidacion.fecha_nacimiento != '' " v-text="mensajeValidacion.fecha_nacimiento" class="text-danger"></small>
                             </div>
-                            
+
                         </div>
-                        
+
 
                         <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label  class="col-form-label">Nivel</label>
+                                <el-select v-model="datosFormulario.nivel" placeholder="Seleccione"  style="width:100%;" required>
+                                    <el-option
+                                        v-for="item in listaNiveles"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"
+                                    >
+                                    </el-option>
+                                </el-select>
+                                <small v-if="mensajeValidacion.nivel != '' " v-text="mensajeValidacion.nivel" class="text-danger"></small>
+                            </div>
                             <div class="form-group col-md-4">
                                     <label  class="col-form-label">Grado</label>
                                     <el-select v-model="datosFormulario.grado" placeholder="Seleccione"  style="width:100%;" required>
@@ -93,19 +94,7 @@
                                 </el-select>
                                 <small v-if="mensajeValidacion.seccion != '' " v-text="mensajeValidacion.seccion" class="text-danger"></small>
                             </div>
-                            <div class="form-group col-md-4">
-                                <label  class="col-form-label">Estado de Matrícula</label>
-                                <el-select v-model="datosFormulario.estado_matricula" placeholder="Seleccione"  style="width:100%;" required>
-                                    <el-option
-                                        v-for="item in listaEstadoMatricula"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value"
-                                    >
-                                    </el-option>
-                                </el-select>
-                                <small v-if="mensajeValidacion.estado_matricula != '' " v-text="mensajeValidacion.estado_matricula" class="text-danger"></small>
-                            </div> 
+
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -128,28 +117,22 @@ export default {
             datosFormulario:{
                 estudiante_id: '',
                 documento: '',
-                codigo_estudiante: '',
                 nombres: '',
                 apellido_paterno: '',
                 apellido_materno: '',
                 fecha_nacimiento: '',
-                estado_matricula: '',
-                tipo_vacante: '',
-                sexo: '',
+                nivel: '',
                 grado: '',
                 seccion: '',
             },
             mensajeValidacion: {
                 estudiante_id: '',
                 documento: '',
-                codigo_estudiante: '',
                 nombres: '',
                 apellido_paterno: '',
                 apellido_materno: '',
                 fecha_nacimiento: '',
-                estado_matricula: '',
-                tipo_vacante: '',
-                sexo: '',
+                nivel: '',
                 grado: '',
                 seccion: '',
             },
@@ -160,8 +143,13 @@ export default {
                 {value: 'CUARTO' ,label:'CUARTO'},
                 {value: 'QUINTO' ,label:'QUINTO'},
             ],
+            listaNiveles: [
+                {value: 'INICIAL' ,label:'INICIAL'},
+                {value: 'PRIMARIA' ,label:'PRIMARIA'},
+                {value: 'SECUNDARIA' ,label:'SECUNDARIA'},
+            ],
             listaSexo: [
-                {value: 'Mujer' ,label:'Mujer'},               
+                {value: 'Mujer' ,label:'Mujer'},
             ],
             listaSecciones: [
                 {value: 'A' ,label:'A'},
@@ -173,7 +161,7 @@ export default {
             listaEstadoMatricula: [
                 {value: 'TEMPORAL' ,label:'TEMPORAL'},
                 {value: 'DEFINITIVA' ,label:'DEFINITIVA'},
-                
+
             ],
             loading: false,
             tituloModal:''
@@ -208,13 +196,10 @@ export default {
                     this.datosFormulario.estudiante_id     = data.estudiante_id
                     this.datosFormulario.nombres           = data.nombres
                     this.datosFormulario.documento         = data.documento
-                    this.datosFormulario.codigo_estudiante = data.codigo_estudiante
                     this.datosFormulario.apellido_paterno  = data.apellido_paterno
                     this.datosFormulario.apellido_materno  = data.apellido_materno
                     this.datosFormulario.fecha_nacimiento  = data.fecha_nacimiento
-                    this.datosFormulario.estado_matricula  = data.estado_matricula
-                    this.datosFormulario.tipo_vacante      = data.tipo_vacante
-                    this.datosFormulario.sexo              = data.sexo
+                    this.datosFormulario.nivel             = data.nivel
                     this.datosFormulario.grado             = data.grado
                     this.datosFormulario.seccion           = data.seccion
 
@@ -296,7 +281,7 @@ export default {
             })
             .finally(() => this.loading = false);
         },
-       
+
         setMensajeValidacion(errors)
         {
             //limpiar mensajes
@@ -318,13 +303,9 @@ export default {
             this.datosFormulario.estudiante_id      = '',
             this.datosFormulario.nombres            = '',
             this.datosFormulario.documento          = '',
-            this.datosFormulario.codigo_estudiante  = '',
             this.datosFormulario.apellido_paterno   = '',
             this.datosFormulario.apellido_materno   = '',
             this.datosFormulario.fecha_nacimiento   = '',
-            this.datosFormulario.estado_matricula   = '',
-            this.datosFormulario.tipo_vacante       = '',
-            this.datosFormulario.sexo               = '',
             this.datosFormulario.grado              = '',
             this.datosFormulario.seccion            = ''
         },
