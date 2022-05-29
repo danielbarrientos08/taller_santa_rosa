@@ -385,17 +385,17 @@ export default
         setData(data)
         {
             this.listaMatriculas = data.matriculas
-            this.listaTalleres = data.talleres
+
             this.estudiante = data.estudiante
             this.periodo = data.periodo
 
-            //eliminamos el taller tambo si el estudiante no es de 2de secundaria
-            if(this.estudiante.grado !='SEGUNDO' && this.estudiante.nivel !='SECUNDARIA'){
-                const listaNueva = this.listaTalleres.filter((item) => item.cod_taller != 'T001' );
-
-                this.listaTalleres = listaNueva
+            if(this.estudiante.grado=='SEGUNDO' && this.estudiante.nivel=='SECUNDARIA'){
+                  this.listaTalleres = data.talleres
             }
-
+            else{
+                  const listaNueva = data.talleres.filter((item) => item.cod_taller != 'T001' );
+                    this.listaTalleres = listaNueva
+            }
 
         },
         resetearFormulario()
