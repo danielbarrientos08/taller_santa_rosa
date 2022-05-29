@@ -27,7 +27,7 @@
 
                     <div class="row">
 
-                            <form class="row g-3" action="{{url('/datos/cargaMasiva')}}" method="POST" enctype="multipart/form-data">
+                            <form class="row g-3" action="{{url('/admin/estudiantes/cargaMasiva')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                  <div class="col-auto">
                                      <label for="staticEmail2 " class="">Archivo xlsx</label>

@@ -18,17 +18,17 @@ class EstudianteImport implements ToCollection, WithHeadingRow
         foreach ($rows as $key => $row)
         {
 
-            $oldDate =  \DateTime::createFromFormat('d/m/Y',trim($row['fecha_nacimiento']));
+            // $oldDate =  \DateTime::createFromFormat('d/m/Y',trim($row['fecha_nacimiento']));
 
-            $newDate = $oldDate->format('Y-m-d');
+            // $newDate = $oldDate->format('Y-m-d');
 
             $estudiante = new Estudiante();
             $estudiante->documento= trim($row['documento']);
             $estudiante->apellido_paterno= trim($row['apellido_paterno']);
             $estudiante->apellido_materno= trim($row['apellido_materno']);
             $estudiante->nombres= trim($row['nombres']);
-            $estudiante->fecha_nacimiento= $newDate;
-            $estudiante->senivelxo= trim($row['nivel']);
+            $estudiante->fecha_nacimiento= null;
+            $estudiante->nivel= trim($row['nivel']);
             $estudiante->grado= trim($row['grado']);
             $estudiante->seccion= trim($row['seccion']);
             $estudiante->save();
