@@ -378,7 +378,8 @@ export default
 
             //eliminamos el taller tambo si el estudiante no es de 2de secundaria
             if(this.estudiante.grado !='SEGUNDO' && this.estudiante.nivel !='SECUNDARIA'){
-                const listaNueva = this.listaTalleres.filter((item) => item.taller.cod_taller != 'T001' );
+                console.log('no es de segundo');
+                const listaNueva = this.listaTalleres.filter((item) => item.cod_taller != 'T001' );
 
                 this.listaTalleres = listaNueva
             }
