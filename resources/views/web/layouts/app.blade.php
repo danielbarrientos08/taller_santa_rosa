@@ -6,8 +6,9 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>IE SANTA ROSA</title>
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{{ asset('img/logo-sr.ico') }}">
+    <title>TALLERES 2022</title>
 
 
     <!-- Fonts -->
@@ -58,23 +59,23 @@
                             <!-- End mobile menu toggle-->
                         </li>
 
-                       
-            
-                
+
+
+
 
                         <li class="dropdown notification-list">
                             <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                <img src="{{ asset('img/admin/users/default.jpg') }}" alt="user-image" class="rounded-circle">
+                                <img src="{{ asset('img/logo-sr.png') }}" alt="user-image" class="" style="width: 28px" >
                                 <span class="pro-user-name ml-1">
-                
+
                                     {{ Auth::guard('web')->user()->nombres }} <i class="mdi mdi-chevron-down"></i>
-                
+
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                                 <!-- item-->
-                              
-                
+
+
                                 <!-- item-->
                                 <a class="dropdown-item notify-item"
                                     href="javascript:void(0);"
@@ -86,11 +87,11 @@
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
-                
+
                             </div>
                         </li>
 
-                      
+
 
                     </ul>
 
@@ -109,11 +110,11 @@
                     </div>
 
                     <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
-            
+
                         {{--  <li class="dropdown d-none d-lg-block">
                             <a class="nav-link dropdown-toggle waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                                 Reports
-                                <i class="mdi mdi-chevron-down"></i> 
+                                <i class="mdi mdi-chevron-down"></i>
                             </a>
                             <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 70px, 0px);">
                                 <!-- item-->
@@ -150,19 +151,19 @@
             </div>
             <!-- end Topbar -->
 
-        
+
             <!-- end navbar-custom -->
 
         </header>
         <div class="wrapper">
             <div class="container-fluid">
-              
-                       
+
+
                             @yield('content')
-                       
+
             </div>
         </div>
-       
+
     </div>
     @yield('footer')
 
@@ -171,7 +172,7 @@
         const base_url = "{{ url('') }}";
         const sesion_usuario = @json(Auth::user())
     </script>
-  
+
     <script src="{{ asset('js/app.js') }}"></script>
     @stack('scripts')
     <script src="{{ asset('admin_template/js/vendor.min.js') }}"></script>

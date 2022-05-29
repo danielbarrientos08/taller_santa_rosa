@@ -9,6 +9,7 @@ use App\Models\Periodo;
 use App\Models\Estudiante;
 use App\Models\Taller;
 use Barryvdh\DomPDF\Facade\Pdf;
+use DB;
 
 class MatriculaController extends Controller
 {
@@ -35,7 +36,16 @@ class MatriculaController extends Controller
         }
     }
 
-    public function vacantes(Request $request,$taller_id){
+    public function vacantes(Request $request,$taller_id)
+    {
+        $vancatesDisponibles = $this->vacantesDisponibles($taller_id);
+
+        return response()->json([
+            'vacantesDisponibles'=> $vancatesDisponibles
+        ],200);
+    }
+
+    private function vacantesDisponibles($taller_id){
 
         $periodo = Periodo::where('estado','Activo')->first();
         $taller = Taller::findOrFail($taller_id);
@@ -45,34 +55,54 @@ class MatriculaController extends Controller
 
         $vancatesDisponibles = (int) $taller->vacantes - (int)$matriculas;
 
-        return response()->json([
-            'vacantesDisponibles'=> $vancatesDisponibles
-        ],200);
+        return $vancatesDisponibles;
     }
 
     public function crear(Request $request )
     {
         if($request->ajax())
         {
+            try {
+                DB::beginTransaction();
 
-            $estudiante = Estudiante::find(\Auth::user()->estudiante_id);
-            $periodo = Periodo::where('estado','Activo')->first();
-            $taller = Taller::findOrFail($request->taller_id);
+                $estudiante = Estudiante::find(\Auth::user()->estudiante_id);
+                $periodo = Periodo::where('estado','Activo')->first();
+                $taller = Taller::findOrFail($request->taller_id);
 
-            $matricula   = new Matricula();
-            $matricula->taller_id      = $taller->taller_id;
-            $matricula->cod_taller      = $taller->cod_taller;
-            $matricula->estudiante_id  = $estudiante->estudiante_id;
-            $matricula->ducumento_estudiante   = $estudiante->documento;
-            $matricula->periodo_id   = $periodo->periodo_id;
-            $matricula->nivel   = $estudiante->nivel;
-            $matricula->grado   = $estudiante->grado;
-            $matricula->seccion   = $estudiante->seccion;
-            $matricula->save();
+                $matricula   = new Matricula();
+                $matricula->taller_id      = $taller->taller_id;
+                $matricula->cod_taller      = $taller->cod_taller;
+                $matricula->estudiante_id  = $estudiante->estudiante_id;
+                $matricula->ducumento_estudiante   = $estudiante->documento;
+                $matricula->periodo_id   = $periodo->periodo_id;
+                $matricula->nivel   = $estudiante->nivel;
+                $matricula->grado   = $estudiante->grado;
+                $matricula->seccion   = $estudiante->seccion;
+                $matricula->save();
+                //verificar cantidad de vacantes despues de la insercion
+                $vancatesDisponibles = $this->vacantesDisponibles($request->taller_id);
 
-            return response()->json([
-                'response'=> $matricula
-            ],201);
+                if( $vancatesDisponibles >= 0)
+                {
+                    DB::commit();
+                    return response()->json([
+                        'response'=> $matricula
+                    ],201);
+                }
+                else{
+                    DB::rollback();
+                    return response()->json([
+                        'response'=> 'No hay vacantes disponibles para el taller: '.$taller->nombre
+                    ],400);
+                }
+
+
+
+            } catch (\Exception $e) {
+                DB::rollback();
+                abort(500,$e->getMessage());
+            }
+
         }
     }
 
@@ -84,7 +114,7 @@ class MatriculaController extends Controller
 
 
         $view = \View::make('pdf.constancia_matricula',compact('estudiante','matriculas'))->render();
-  
+
         $pdf  = PDF::loadHTML($view)->setPaper('a5', 'landscape')->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif', 'enable_remote' => false]);
 
         // $pdf->loadHTML($view);

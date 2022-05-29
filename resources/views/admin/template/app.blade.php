@@ -9,7 +9,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- App favicon -->
-        <link rel="shortcut icon" href="{{ asset('img/logo.ico') }}">
+        <link rel="shortcut icon" href="{{ asset('img/logo-sr.ico') }}">
 
 
         <!-- App css -->

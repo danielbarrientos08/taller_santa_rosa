@@ -40,7 +40,7 @@
                                                 <th class="text-light">Taller</th>
                                                 <!-- <th class="text-light">Día del taller</th> -->
                                                 <th class="text-light">Fecha de matícula</th>
-                                                <th class="text-light">Eliminar</th>
+                                                <!-- <th class="text-light">Eliminar</th> -->
 
                                             </thead>
                                             <tbody>
@@ -54,11 +54,11 @@
                                                     <!-- <td v-text="item.grupo"></td> -->
                                                     <td v-text="item.fecha_registro"></td>
 
-                                                    <td>
+                                                    <!-- <td>
                                                         <button class="btn btn-outline-danger btn-xs waves-effect waves-light" @click.prevent="eliminarMatricula(item.matricula_id,item.taller.nombre)" title="Eliminar">
                                                             <i class="fe-trash-2"></i>
                                                         </button>
-                                                    </td>
+                                                    </td> -->
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -197,7 +197,7 @@ export default
         },
 
         descargarConstancia() {
-            console.log('raaaa');
+
             window.location.href = base_url+'/matriculas/constancia'
         },
 
@@ -220,8 +220,20 @@ export default
 
             })
             .catch(error =>{
+
                 evaluateHttpResponse(error.response.status)
 
+                 if(error.response.status == 400){
+                    let mensaje = error.response.data.response
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#56c2d6",
+                    text: mensaje,
+                    });
+                    $('#matriculaCreateModal').modal('toggle');
+                    this.listarMatriculas();
+                }
                 if(error.response.status == 422){
                     let errors = error.response.data.errors
                     this.setMensajeValidacion(errors);
@@ -303,7 +315,7 @@ export default
             }
 
             const vacantes= await this.verificarVacantes(taller_id);
-            if(vacantes == 0){
+            if(vacantes === 0){
                  Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -317,7 +329,6 @@ export default
         },
         async validarGrupoSeleccionado(){
             const matriculaRepetida = await this.listaMatriculas.filter((item) => item.grupo === this.datosMatricula.grupo );
-            console.log('matricularepetida:', matriculaRepetida);
               if(matriculaRepetida.length > 0){
                    Swal.fire({
                     icon: 'error',
@@ -351,12 +362,12 @@ export default
             .finally(() => this.loading = false);
         },
 
-        verificarVacantes(taller_id){
+        async verificarVacantes(taller_id){
 
             let vacantesDisponibles=0
             let url = base_url +'/matriculas/vacantes/'+taller_id
 
-            axios.get(url)
+             vacantesDisponibles=await axios.get(url)
             .then(response =>{
                 let data = response.data.vacantesDisponibles
                vacantesDisponibles=data
@@ -366,8 +377,10 @@ export default
             })
             .finally(() => {
                 this.loading = false
-                return vacantesDisponibles
+
             });
+
+             return vacantesDisponibles
         },
         setData(data)
         {
@@ -378,7 +391,6 @@ export default
 
             //eliminamos el taller tambo si el estudiante no es de 2de secundaria
             if(this.estudiante.grado !='SEGUNDO' && this.estudiante.nivel !='SECUNDARIA'){
-                console.log('no es de segundo');
                 const listaNueva = this.listaTalleres.filter((item) => item.cod_taller != 'T001' );
 
                 this.listaTalleres = listaNueva
