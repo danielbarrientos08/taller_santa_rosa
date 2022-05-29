@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Matricula extends Model
 {
@@ -16,7 +17,20 @@ class Matricula extends Model
     const UPDATED_AT = 'fecha_actualizacion';
     protected $primaryKey = 'matricula_id';
     protected $guarded = [];
+    protected $casts = [
+        'fecha_registro' => 'datetime:Y-m-d H:i:s',
+        'fecha_actualizacion'   => 'datetime:Y-m-d H:i:s',
+    ];
 
+    public function getFechaRegistroAttribute($value)
+    {
+        return Carbon::parse($value)->format('d/m/Y H:i:s');
+    }
+
+    public function getFechaActualizacionAttribute($value)
+    {
+        return Carbon::parse($value)->format('d/m/Y H:i:s');
+    }
 
     protected $with = ['estudiante','taller','periodo'];
     public function estudiante()

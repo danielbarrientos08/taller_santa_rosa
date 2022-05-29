@@ -25,13 +25,12 @@ class EstudianteCreateRequest extends FormRequest
     {
         return [
             'documento'         => 'bail|required|unique:estudiante|max:15',
-            'codigo_estudiante' => 'bail|required|unique:estudiante|digits:14',
+            // 'codigo_estudiante' => 'bail|required|unique:estudiante|digits:14',
             'apellido_paterno'  => 'bail|required|max:40',
             'apellido_materno'  => 'bail|required|max:40',
             'nombres'           => 'bail|required|max:40',
             'fecha_nacimiento'  => 'bail|required|date',
-            'estado_matricula'  => 'bail|required',
-            'sexo'              => 'bail|required|in:Mujer,Varón',
+            'nivel'             => 'bail|required|in:INICIAL,PRIMARIA,SECUNDARIA',
             'grado'             => 'bail|required|in:PRIMERO,SEGUNDO,TERCERO,CUARTO,QUINTO',
             'seccion'           => 'bail|required',
         ];

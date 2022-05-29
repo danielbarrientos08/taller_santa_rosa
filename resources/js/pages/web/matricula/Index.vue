@@ -15,11 +15,11 @@
                         <div class="col-8">
                             <div class="float-right" >
 
-                                    <button type="button" class="btn btn-xs btn-flat btn-success btn-width" @click.prevent="crearMatricula()">
+                                    <button type="button" class="btn btn-flat btn-info btn-width" @click.prevent="crearMatricula()">
                                         <i class="fe-plus-circle"></i> Agregar matrícula
                                     </button>
 
-                                <button type="button" class="btn btn-xs btn-flat btn-light btn-width waves-effect waves-light"  @click.prevent="pageReload()" > <i class="fe-refresh-ccw"></i> Recargar</button>
+                                <button type="button" class="btn  btn-flat btn-light btn-width waves-effect waves-light"  @click.prevent="pageReload()" > <i class="fe-refresh-ccw"></i> Recargar</button>
                             </div>
                         </div>
                     </div>
@@ -38,8 +38,8 @@
                                                 <th class="text-light">Grado</th>
                                                 <th class="text-light">Sección</th>
                                                 <th class="text-light">Taller</th>
-                                                <th class="text-light">Día</th>
-                                              
+                                                <!-- <th class="text-light">Día del taller</th> -->
+                                                <th class="text-light">Fecha de matícula</th>
                                                 <th class="text-light">Eliminar</th>
 
                                             </thead>
@@ -51,8 +51,9 @@
                                                     <td v-text="item.estudiante.grado"></td>
                                                     <td v-text="item.estudiante.seccion"></td>
                                                     <td v-text="item.taller.nombre"></td>
-                                                    <td v-text="item.dia_semana"></td>
-                                                   
+                                                    <!-- <td v-text="item.grupo"></td> -->
+                                                    <td v-text="item.fecha_registro"></td>
+
                                                     <td>
                                                         <button class="btn btn-outline-danger btn-xs waves-effect waves-light" @click.prevent="eliminarMatricula(item.matricula_id,item.taller.nombre)" title="Eliminar">
                                                             <i class="fe-trash-2"></i>
@@ -68,6 +69,11 @@
                                         </div>
                                     </template>
                                 </fieldset>
+                                <hr>
+                               <template v-if="listaMatriculas.length">
+                                    <a href="#" @click="descargarConstancia()" >Decargar Constancia </a>
+                               </template>
+
                             </div><!-- end table-responsive -->
 
                         </div> <!-- end col -->
@@ -89,9 +95,9 @@
                     <div class="modal-body">
 
                         <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-12">
                                     <label  class="col-form-label">Taller</label>
-                                    <el-select v-model="datosMatricula.taller_id" @change="validarTallerSeleccionado()" placeholder="Seleccione"  style="width:100%;" required>
+                                    <el-select v-model="datosMatricula.taller_id" filterable  @change="validarTallerSeleccionado()" placeholder="Seleccione"  style="width:100%;" required>
                                         <el-option
                                             v-for="item in listaTalleres"
                                             :key="item.taller_id"
@@ -102,24 +108,24 @@
                                     </el-select>
                                 <small v-if="mensajeValidacion.taller_id != '' " v-text="mensajeValidacion.taller_id" class="text-danger"></small>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label  class="col-form-label">Día semana</label>
-                                <el-select v-model="datosMatricula.dia_semana" @change="validarDiaSeleccionado()" placeholder="Seleccione" style="width:100%;" required>
+                            <!-- <div class="form-group col-md-6">
+                                <label  class="col-form-label">Grupo</label>
+                                <el-select v-model="datosMatricula.grupo" @change="validarGrupoSeleccionado()" placeholder="Seleccione" style="width:100%;" required>
                                     <el-option
-                                        v-for="item in listaDias"
+                                        v-for="item in listaGrupos"
                                         :key="item.value"
                                         :label="item.label"
                                         :value="item.value"
                                     >
                                     </el-option>
                                 </el-select>
-                                <small v-if="mensajeValidacion.dia_semana != '' " v-text="mensajeValidacion.dia_semana" class="text-danger"></small>
-                            </div>
+                                <small v-if="mensajeValidacion.grupo != '' " v-text="mensajeValidacion.grupo" class="text-danger"></small>
+                            </div> -->
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="la la-close"></i> Cerrar</button>
-                        <button type="submit" class="btn btn-success"><i class="la la-check"></i> Guardar</button>
+                        <button type="submit" class="btn btn-info"><i class="la la-check"></i> Guardar</button>
                     </div>
                 </form>
             </div>
@@ -147,14 +153,13 @@ export default
             ],
              mensajeValidacion: {
                 taller_id: '',
-                dia_semana: '',
+                grupo: '',
             },
             periodo:{},
-            listaDias: [
-                {value: 'LUNES',label:'LUNES'},
-                {value: 'MARTES',label:'MARTES'},
-                {value: 'MIERCOLES',label:'MIERCOLES'},
-                {value: 'JUEVES',label:'JUEVES'},
+            listaGrupos: [
+                {value: 'LUNES-MIERCOLES',label:'LUNES-MIERCOLES'},
+                {value: 'MARTES-JUEVES',label:'MARTES-JUEVES'},
+
             ],
             pagination:{
                 currentPage: 0,
@@ -166,7 +171,7 @@ export default
             },
             datosMatricula: {
                 taller_id: '',
-                dia_semana: ''
+                cod_taller: ''
             },
             loading: false,
             edicionIndex: null,
@@ -190,7 +195,13 @@ export default
             // this.pagination.currentPage = page;
             // this.listarMatriculas(page)
         },
-       registrarMatricula() {
+
+        descargarConstancia() {
+            console.log('raaaa');
+            window.location.href = base_url+'/matriculas/constancia'
+        },
+
+        registrarMatricula() {
             this.loading = true
             let url = base_url +'/matriculas/crear'
 
@@ -198,26 +209,15 @@ export default
             .then(response =>{
 
                 this.resetearFormulario();
-
-                Swal.fire({
-                    title: 'Matrícula registrada correctamente',
-                    text: '¿Desea registrar otra matrícula ?, recuerde que solo puede registar 2 como máximo',
+                 Swal.fire({
                     icon: 'success',
-                    showCancelButton: true,
-                    cancelButtonText: `No`,
-                    showConfirmButton: true,
-                    confirmButtonText: `Si`,
-                    confirmButtonColor: "#23b397",
-                    cancelButtonColor: "#98a6ad",
-                }).then((result) => {
+                    title: 'Matrícula registrada correctamente.',
+                    confirmButtonColor: "#56c2d6",
+                    text: '',
+                    });
+                    $('#matriculaCreateModal').modal('toggle');
+                    this.listarMatriculas();
 
-                    if (result.isConfirmed)
-                        Swal.close();
-                    else{
-                        $('#matriculaCreateModal').modal('toggle');
-                        this.listarMatriculas();
-                    }
-                })
             })
             .catch(error =>{
                 evaluateHttpResponse(error.response.status)
@@ -241,7 +241,7 @@ export default
                 html: "¿Estás seguro(a) de eliminar tu matrícula del taller: <b>"+ name+"</b>?",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: "#f0643b",
+                confirmButtonColor: "#56c2d6",
                 cancelButtonColor: "#98a6ad",
                 confirmButtonText: 'Si, eliminar',
                 cancelButtonText: 'No, cancelar'
@@ -269,31 +269,66 @@ export default
             })
         },
         async validarTallerSeleccionado(){
-            const matriculaRepetida = await this.listaMatriculas.filter((item) => item.taller_id === this.datosMatricula.taller_id );
-            const taller = await this.listaTalleres.filter((item)=> item.taller_id === this.datosMatricula.taller_id );
+            //buscamos el taller seleccionado
+            let taller_id = this.datosMatricula.taller_id
+             //buscamos el taller seleccionado
+            const taller = await this.listaTalleres.filter((item)=> item.taller_id === taller_id );
+
+            const matriculaRepetida = await this.listaMatriculas.filter((item) => item.taller.cod_taller === taller[0].cod_taller );
+
 
             if(matriculaRepetida.length >0){
               Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: `Ya estás llevando el taller: ${taller[0].nombre},elige otro taller.`,
+                    confirmButtonColor: "#56c2d6",
+                    text: `Ya estás llevando el taller: ${matriculaRepetida[0].taller.nombre},elige otro taller.`,
+                    });
+
+                this.datosMatricula.taller_id = null;
+            }
+
+            const grupoRepetido = await this.listaMatriculas.filter((item) => item.taller.grupo === taller[0].grupo );
+
+
+            if(grupoRepetido.length >0){
+              Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#56c2d6",
+                    text: `Tienes el taller: ${grupoRepetido[0].taller.nombre} en ese horario,elige otro horario.`,
+                    });
+
+                this.datosMatricula.taller_id = null;
+            }
+
+            const vacantes= await this.verificarVacantes(taller_id);
+            if(vacantes == 0){
+                 Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#56c2d6",
+                    text: `Ya no quedan vacantes disponibles para el taller: ${matriculaRepetida[0].taller.nombre},elige otro taller.`,
                     });
 
                 this.datosMatricula.taller_id = null;
             }
 
         },
-        async validarDiaSeleccionado(){
-            const matriculaRepetida = await this.listaMatriculas.filter((item) => item.dia_semana === this.datosMatricula.dia_semana );
+        async validarGrupoSeleccionado(){
+            const matriculaRepetida = await this.listaMatriculas.filter((item) => item.grupo === this.datosMatricula.grupo );
             console.log('matricularepetida:', matriculaRepetida);
               if(matriculaRepetida.length > 0){
                    Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: `Ya estás llevando el taller: ${matriculaRepetida[0].taller.nombre} el día ${this.datosMatricula.dia_semana}, elige otro día.`,
+                    confirmButtonColor: "#56c2d6",
+                    text: `Ya estás llevando el taller: ${matriculaRepetida[0].taller.nombre} en el grupo ${this.datosMatricula.grupo}, elige otro grupo .`,
                     });
-                this.datosMatricula.dia_semana = null;
+                this.datosMatricula.grupo = null;
             }
+
+
         },
         actualizarMatricula(data)
         {
@@ -315,6 +350,25 @@ export default
             })
             .finally(() => this.loading = false);
         },
+
+        verificarVacantes(taller_id){
+
+            let vacantesDisponibles=0
+            let url = base_url +'/matriculas/vacantes/'+taller_id
+
+            axios.get(url)
+            .then(response =>{
+                let data = response.data.vacantesDisponibles
+               vacantesDisponibles=data
+            })
+            .catch(error =>{
+                evaluateHttpResponse(error.response.status)
+            })
+            .finally(() => {
+                this.loading = false
+                return vacantesDisponibles
+            });
+        },
         setData(data)
         {
             this.listaMatriculas = data.matriculas
@@ -322,12 +376,14 @@ export default
             this.estudiante = data.estudiante
             this.periodo = data.periodo
 
-            // this.pagination.to          = data.to
-            // this.pagination.from        = data.from
-            // this.pagination.total       = data.total
-            // this.pagination.perPage     = data.per_page
-            // this.pagination.lastPage    = data.last_page
-            // this.pagination.currentPage = data.current_page
+            //eliminamos el taller tambo si el estudiante no es de 2de secundaria
+            if(this.estudiante.grado=='SEGUNDO' && this.estudiante.nivel=='SECUNDARIA'){
+                const listaNueva = this.listaTalleres.filter((item) => item.taller.cod_taller != 'T001' );
+
+                this.listaTalleres = listaNueva
+            }
+
+
         },
         resetearFormulario()
         {
@@ -337,7 +393,7 @@ export default
             }
 
             this.datosMatricula.taller_id   = ''
-            this.datosMatricula.dia_semana  = ''
+            this.datosMatricula.grupo  = ''
 
         },
         pageReload()
@@ -345,11 +401,12 @@ export default
             location.reload()
         },
          crearMatricula()
-        {   
+        {
             if(this.listaMatriculas.length >1){
                 Swal.fire({
                     icon: 'info',
                     title: 'Notificación',
+                    confirmButtonColor: "#56c2d6",
                     text: `No puedes llevar más de dos (2) talleres.`,
                     });
             }
@@ -357,10 +414,6 @@ export default
                 this.tituloModal ='Agregar matrícula'
                 $('#matriculaCreateModal').modal('toggle');
             }
-        },
-        resetSearchForm(){
-            this.datosFormularioBusqueda.nombres = ''
-            this.datosFormularioBusqueda.estado = ''
         },
         setMensajeValidacion(errors)
         {
