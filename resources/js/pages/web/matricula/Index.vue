@@ -377,7 +377,7 @@ export default
             this.periodo = data.periodo
 
             //eliminamos el taller tambo si el estudiante no es de 2de secundaria
-            if(this.estudiante.grado=='SEGUNDO' && this.estudiante.nivel=='SECUNDARIA'){
+            if(this.estudiante.grado !='SEGUNDO' && this.estudiante.nivel !='SECUNDARIA'){
                 const listaNueva = this.listaTalleres.filter((item) => item.taller.cod_taller != 'T001' );
 
                 this.listaTalleres = listaNueva
