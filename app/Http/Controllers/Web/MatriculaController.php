@@ -23,7 +23,7 @@ class MatriculaController extends Controller
         if($request->ajax())
         {
             $periodo = Periodo::where('estado','Activo')->first();
-            $talleres = Taller::where('estado','Activo')->where('vacantes','>',0)->get();
+            $talleres = Taller::where('estado','Activo')->where('vacantes','>',0)->orderBy('nombre')->get();
             $estudiante = Estudiante::find(\Auth::user()->estudiante_id);
             $matriculas = Matricula::where('estudiante_id',\Auth::user()->estudiante_id)->where('periodo_id',$periodo->periodo_id)->get();
 
