@@ -5,7 +5,7 @@
                 <div class="card-body p-4">
                     <div class="text-center w-75 m-auto">
                         <a href="#">
-                            <span><img src="http://localhost:8000/img/logo2.png" alt="" height="70"></span>
+                            <span><img  v-bind:src="baseUrl+'/img/logo2.png'" alt="" height="70"></span>
                         </a>
                         <h4> SISTEMA DE MATRÍCULA TALLERES </h4>
 
@@ -38,7 +38,7 @@
                     </div>
                     <div class="row mt-3">
                         <div class="col-12 text-center">
-                            <p> <a href="#" @click.prevent="forgotPassword()" class="text-muted ml-1">¿Olvidaste tu contraseña?</a></p>
+
                         </div> <!-- end col -->
                     </div>
 
