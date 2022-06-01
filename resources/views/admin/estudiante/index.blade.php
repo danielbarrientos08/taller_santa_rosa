@@ -9,7 +9,7 @@
         <div class="page-title-box">
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
-                  
+
                     <li class="breadcrumb-item active">Panel</li>
                 </ol>
             </div>
@@ -19,7 +19,7 @@
 </div>
 <!-- end page title -->
 <div id="app">
-    <estudiante-index></estudiante-index>
+    <admin-estudiante-index></admin-estudiante-index>
 </div>
 
 @endsection

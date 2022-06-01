@@ -18,6 +18,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ url('admin/matriculas') }}">
+                        <i class="la la-user"></i>
+                        <span> Matrículas </span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ url('admin/estudiantes/cargaMasiva') }}">
                         <i class="la la-user"></i>
                         <span> Carga de estudiantes </span>

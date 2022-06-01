@@ -33,6 +33,7 @@ class Matricula extends Model
     }
 
     protected $with = ['estudiante','taller','periodo'];
+
     public function estudiante()
     {
         return $this->belongsTo('App\Models\Estudiante', 'estudiante_id', 'estudiante_id');
@@ -45,4 +46,39 @@ class Matricula extends Model
     {
         return $this->belongsTo('App\Models\Periodo', 'periodo_id', 'periodo_id');
     }
+
+
+     /**Scopes */
+     public function scopeGrado($query,$value)
+     {
+         if ($value!= '')
+             return $query->where('grado', $value);
+     }
+     public function scopeNivel($query,$value)
+     {
+         if ($value!= '')
+             return $query->where('nivel', $value);
+     }
+     public function scopeSeccion($query,$value)
+     {
+         if ($value!= '')
+            return $query->where('seccion', $value);
+     }
+
+     public function scopeTaller($query,$value)
+     {
+         if ($value!= '')
+             return $query->where('taller_id', $value);
+     }
+     public function scopeCodTaller($query,$value)
+     {
+         if ($value!= '')
+             return $query->where('cod_taller', $value);
+     }
+     public function scopeDocumentoEstudiante($query,$value)
+     {
+         if ($value!= '')
+             return $query->where('ducumento_estudiante','LIKE', '%'.$value.'%');
+     }
+
 }
