@@ -36,7 +36,7 @@
                                             </div>
                                             <div class="form-group col-2">
                                                 <label for="role" class="col-form-label">Taller</label>
-                                                <el-select v-model="datosFormularioBusqueda.taller_id" placeholder="Seleccione" style="width:100%;">
+                                                <el-select v-model="datosFormularioBusqueda.taller_id"  filterable placeholder="Seleccione" style="width:100%;">
                                                     <el-option
                                                         v-for="item in listaTalleres"
                                                         :key="item.taller_id"

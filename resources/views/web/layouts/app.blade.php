@@ -68,7 +68,7 @@
                                 <img src="{{ asset('img/logo-sr.png') }}" alt="user-image" class="" style="width: 28px" >
                                 <span class="pro-user-name ml-1">
 
-                                    {{ Auth::guard('web')->user()->nombres }} <i class="mdi mdi-chevron-down"></i>
+                                    {{ Auth::guard('web')->user()->nombres }} {{ Auth::guard('web')->user()->apellido_paterno }} {{ Auth::guard('web')->user()->apellido_materno }}  <i class="mdi mdi-chevron-down"></i>
 
                                 </span>
                             </a>
