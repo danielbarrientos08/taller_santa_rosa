@@ -63,7 +63,10 @@ Route::prefix('admin')->group(function ()
         Route::delete('/estudiantes/eliminar', [App\Http\Controllers\Admin\EstudianteController::class, 'eliminar']);
         Route::get('/estudiantes/obtener/{id_estudiante}', [App\Http\Controllers\Admin\EstudianteController::class, 'obtener']);
 
-
+        /**Matrículas */
+        Route::get('/matriculas',[App\Http\Controllers\Admin\MatriculaController::class, 'index']);
+        Route::get('/matriculas/listar', [App\Http\Controllers\Admin\MatriculaController::class, 'listar']);
+        Route::delete('/matriculas/eliminar/{id}', [App\Http\Controllers\Admin\MatriculaController::class, 'eliminar']);
         /**Carga masicva de estudiantes */
         Route::get('/estudiantes/cargaMasiva', [App\Http\Controllers\Admin\DatosController::class, 'index']);
         Route::post('/estudiantes/cargaMasiva', [App\Http\Controllers\Admin\DatosController::class, 'cargaMasiva']);

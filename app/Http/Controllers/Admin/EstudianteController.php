@@ -21,7 +21,7 @@ class EstudianteController extends Controller
         if($request->ajax())
         {
             $estudiantes = Estudiante::WhereRaw("CONCAT_WS(' ',apellido_paterno,apellido_materno,nombres,documento) LIKE ?", ['%'.$request->nombres.'%'])
-                                        ->grado($request->grado)->grado($request->nivel)->paginate(10);
+                                        ->grado($request->grado)->nivel($request->nivel)->paginate(10);
 
             return response()->json([
                 'response'=> $estudiantes
