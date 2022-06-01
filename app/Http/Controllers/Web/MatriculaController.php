@@ -93,7 +93,7 @@ class MatriculaController extends Controller
                     ],201);
                 }
                 else{
-                    abort(400,'Ya no hay cupos disponibles');
+                    abort(400,'Ya no hay cupos disponibles, pruebe seleccionando otro taller');
                 }
 
 
