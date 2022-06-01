@@ -110,7 +110,9 @@ class MatriculaController extends Controller
     {
         $periodo = Periodo::where('estado','Activo')->first();
         $estudiante = Estudiante::find(\Auth::user()->estudiante_id);
-        $matriculas = Matricula::where('estudiante_id',\Auth::user()->estudiante_id)->where('periodo_id',$periodo->periodo_id)->get();
+        $matriculas = Matricula::with(['estudiante' => function ($query) {
+            $query->orderBy('apellido_paterno','DESC');
+        }])->where('estudiante_id',\Auth::user()->estudiante_id)->where('periodo_id',$periodo->periodo_id)->get();
 
 
         $view = \View::make('pdf.constancia_matricula',compact('estudiante','matriculas'))->render();

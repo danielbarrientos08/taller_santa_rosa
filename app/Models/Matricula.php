@@ -32,7 +32,7 @@ class Matricula extends Model
         return Carbon::parse($value)->format('d/m/Y H:i:s');
     }
 
-    protected $with = ['estudiante','taller','periodo'];
+    protected $with = ['taller','periodo'];
 
     public function estudiante()
     {

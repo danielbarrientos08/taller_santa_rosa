@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Matricula;
 use App\Models\Periodo;
 use App\Models\Taller;
+use Illuminate\Database\Eloquent\Builder;
 
 class MatriculaController extends Controller
 {
@@ -23,13 +24,19 @@ class MatriculaController extends Controller
             $periodo = Periodo::where('estado','Activo')->first();
             $talleres = Taller::where('estado','Activo')->where('vacantes','>',0)->orderBy('nombre')->get();
             $matriculas = Matricula::where('periodo_id',$periodo->periodo_id)
-                            ->taller($request->taller_id)
-                            ->codTaller($request->cod_taller)
-                            ->documentoEstudiante($request->documento_estudiante)
-                            ->nivel($request->nivel)
-                            ->grado($request->grado)
-                            ->seccion($request->seccion)
-                            ->paginate(20);
+                                ->taller($request->taller_id)
+                                ->codTaller($request->cod_taller)
+                                ->documentoEstudiante($request->documento_estudiante)
+                                ->nivel($request->nivel)
+                                ->grado($request->grado)
+                                ->seccion($request->seccion)
+                                ->orderBy('grado','DESC')
+                                ->orderBy('seccion','ASC')
+                                ->orderBy('nivel','DESC')
+                                ->with(['estudiante' => function ($query) {
+                                    $query->orderBy('apellido_paterno','DESC');
+                                }])
+                                ->paginate(50);
 
             return response()->json([
                 'talleres'=> $talleres,
