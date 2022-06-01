@@ -213,6 +213,16 @@ export default
         })
     },
     methods:{
+        resetSearchForm(){
+            this.datosFormularioBusqueda = {
+                taller_id: '',
+                cod_taller: '',
+                documento_estudiante: '',
+                nivel: '',
+                grado: '',
+                seccion: ''
+            };
+        },
         selectPage(page)
         {
             this.pagination.currentPage = page;
@@ -299,11 +309,8 @@ export default
         pageReload()
         {
             location.reload()
-        },
-        resetSearchForm(){
-            this.datosFormularioBusqueda.nombres = ''
-            this.datosFormularioBusqueda.estado = ''
         }
+
     },
     computed:{
         linksList(){
