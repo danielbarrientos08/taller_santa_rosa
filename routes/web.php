@@ -67,6 +67,8 @@ Route::prefix('admin')->group(function ()
         Route::get('/matriculas',[App\Http\Controllers\Admin\MatriculaController::class, 'index']);
         Route::get('/matriculas/listar', [App\Http\Controllers\Admin\MatriculaController::class, 'listar']);
         Route::delete('/matriculas/eliminar/{id}', [App\Http\Controllers\Admin\MatriculaController::class, 'eliminar']);
+        Route::get('/matriculas/reportePdf', [App\Http\Controllers\Admin\MatriculaController::class, 'reporteMatriculasPdf']);
+
         /**Carga masicva de estudiantes */
         Route::get('/estudiantes/cargaMasiva', [App\Http\Controllers\Admin\DatosController::class, 'index']);
         Route::post('/estudiantes/cargaMasiva', [App\Http\Controllers\Admin\DatosController::class, 'cargaMasiva']);

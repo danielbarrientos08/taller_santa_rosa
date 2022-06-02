@@ -121,7 +121,6 @@ class MatriculaController extends Controller
 
         $pdf  = PDF::loadHTML($view)->setPaper('a5', 'landscape')->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif', 'enable_remote' => false]);
 
-        // $pdf->loadHTML($view);
         return $pdf->download('Constancia-matricula-'.$estudiante->documento.'.pdf');
     }
 
@@ -135,4 +134,6 @@ class MatriculaController extends Controller
             return response('success',200);
         }
     }
+
+
 }

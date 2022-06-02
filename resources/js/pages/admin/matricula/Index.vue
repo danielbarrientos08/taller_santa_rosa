@@ -84,6 +84,16 @@
                                     </form>
                                 </fieldset>
                             </div>
+                            <template v-if="listaMatriculas.length">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="float-right">
+                                            <button type="button" @click="descargarReporte()" class="btn btn-xs btn-light text-danger mt-0"> Descargar Pdf <i class="far fa-lg fa-file-pdf"></i></button>
+                                        </div> 
+                                    </div>
+                                </div>
+                            </template>
+
                             <div class="table-responsive">
                                 <fieldset>
                                     <legend> Registros </legend>
@@ -271,7 +281,15 @@ export default
                 }
             })
         },
+        descargarReporte(){
+            this.loading = true
 
+            let url = base_url +`/admin/matriculas/reportePdf?taller_id=${this.datosFormularioBusqueda.taller_id}&cod_taller=${this.datosFormularioBusqueda.cod_taller}&documento_estudiante=${this.datosFormularioBusqueda.documento_estudiante}&nivel=${this.datosFormularioBusqueda.nivel}&grado=${this.datosFormularioBusqueda.grado}&seccion=${this.datosFormularioBusqueda.seccion}`
+            
+            window.open(url, '_blank');
+            // location.href= url
+            this.loading = false;
+        },
         actualizarMatricula(data)
         {
             this.listaMatriculas.splice(this.edicionIndex, 1, data);
