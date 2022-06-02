@@ -58,9 +58,11 @@ class MatriculaController extends Controller
     }
 
     public function reporteMatriculasPdf(Request $request)
-    {
+    {   
+        $nombreTaller = '(VARIOS)';
+
         $periodo = Periodo::where('estado','Activo')->first();
-        $talleres = Taller::where('estado','Activo')->where('vacantes','>',0)->orderBy('nombre')->get();
+        $taller = Taller::find($request->taller_id);
         $matriculas = Matricula::where('periodo_id',$periodo->periodo_id)
                                 ->taller($request->taller_id)
                                 ->codTaller($request->cod_taller)
@@ -76,9 +78,12 @@ class MatriculaController extends Controller
                                 }])
                                 ->get();
 
-        $filtros= $request->all();            
+        if($taller){
+            $nombreTaller = $taller->nombre;
+        }       
+       
         $pdf = \App::make('dompdf.wrapper');
-        $view = \View::make('pdf.lista_matriculas',compact('filtros','matriculas'))->render();
+        $view = \View::make('pdf.lista_matriculas',compact('nombreTaller','matriculas'))->render();
 
         $pdf->loadHTML($view)->setPaper('a4', 'portrait')->setOptions(['dpi' => 150,'enable_php'=>true, 'defaultFont' => 'sans-serif', 'enable_remote' => false]);
 

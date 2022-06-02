@@ -192,6 +192,7 @@ export default
                 {value: 'TERCERO',label:'TERCERO'},
                 {value: 'CUARTO',label:'CUARTO'},
                 {value: 'QUINTO',label:'QUINTO'},
+                {value: 'SEXTO',label:'SEXTO'},
             ],
             listaNiveles: [
                 {value: '',label:'TODOS'},

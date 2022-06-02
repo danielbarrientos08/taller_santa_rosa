@@ -76,7 +76,7 @@ hr{
 }
 </style>
 <body>
-    
+
     <div class="head">
         <div class="primary-area primary-color">
             <center>
@@ -84,16 +84,19 @@ hr{
             </center>
         </div>
         <br>
-        
+
         <div class="row">
             <center>
                 <h3 class="tl">LISTA DE MATRÍCULAS-TALLERES</h3>
             </center>
             <center>
-                <h4 class="tl">IE. SANTA ROSA</h4>
+                <h5 class="tl">TALLER: {{ $nombreTaller}}</h5>
             </center>
             <center>
-                <h4 class="tl"> 0233288</h4>
+                <h6 class="tl">IE. SANTA ROSA</h6>
+            </center>
+            <center>
+                <h6 class="tl"> 0233288</h6>
             </center>
         </div>
     </div>
@@ -104,7 +107,7 @@ hr{
         <div class="row">
             <b>Nivel: </b>Varios
         </div>  --}}
-       
+
         <div class="row">
             <table id="table">
                 <thead class="thead-dark">
@@ -138,13 +141,13 @@ hr{
                     </tr>
                     @endforeach
                 </tbody>
-                
+
             </table>
-           
+
         </div>
-      
+
     </div>
-   
+
     <div class="footer">
         <small style="margin-left: 30px; font-size: 18px;"> Fecha de descarga: {{ date('d/m/Y H:i:s') }} </small>
     </div>
