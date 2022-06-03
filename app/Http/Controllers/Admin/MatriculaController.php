@@ -9,6 +9,7 @@ use App\Models\Periodo;
 use App\Models\Taller;
 use Barryvdh\DomPDF\Facade\Pdf;
 use DB;
+use App\Exports\MatriculaExport;
 
 class MatriculaController extends Controller
 {
@@ -31,9 +32,9 @@ class MatriculaController extends Controller
                                 ->nivel($request->nivel)
                                 ->grado($request->grado)
                                 ->seccion($request->seccion)
+                                ->orderBy('nivel','DESC')
                                 ->orderBy('grado','DESC')
                                 ->orderBy('seccion','ASC')
-                                ->orderBy('nivel','DESC')
                                 ->with(['estudiante' => function ($query) {
                                     $query->orderBy('apellido_paterno','DESC');
                                 }])
@@ -57,8 +58,8 @@ class MatriculaController extends Controller
         }
     }
 
-    public function reporteMatriculasPdf(Request $request)
-    {   
+    public function reporteMatriculasExcel(Request $request)
+    {
         $nombreTaller = '(VARIOS)';
 
         $periodo = Periodo::where('estado','Activo')->first();
@@ -70,9 +71,9 @@ class MatriculaController extends Controller
                                 ->nivel($request->nivel)
                                 ->grado($request->grado)
                                 ->seccion($request->seccion)
+                                ->orderBy('nivel','DESC')
                                 ->orderBy('grado','DESC')
                                 ->orderBy('seccion','ASC')
-                                ->orderBy('nivel','DESC')
                                 ->with(['estudiante' => function ($query) {
                                     $query->orderBy('apellido_paterno','DESC');
                                 }])
@@ -80,8 +81,37 @@ class MatriculaController extends Controller
 
         if($taller){
             $nombreTaller = $taller->nombre;
-        }       
-       
+        }
+
+        return \Excel::download(new MatriculaExport($matriculas,$nombreTaller),'ReporteMatriculas.xlsx');
+    }
+
+    public function reporteMatriculasPdf(Request $request)
+    {
+        $nombreTaller = '(VARIOS)';
+
+        $periodo = Periodo::where('estado','Activo')->first();
+        $taller = Taller::find($request->taller_id);
+        $matriculas = Matricula::where('periodo_id',$periodo->periodo_id)
+                                ->taller($request->taller_id)
+                                ->codTaller($request->cod_taller)
+                                ->documentoEstudiante($request->documento_estudiante)
+                                ->nivel($request->nivel)
+                                ->grado($request->grado)
+                                ->seccion($request->seccion)
+                                ->orderBy('nivel','DESC')
+                                ->orderBy('grado','DESC')
+                                ->orderBy('seccion','ASC')
+
+                                ->with(['estudiante' => function ($query) {
+                                    $query->orderBy('apellido_paterno','DESC');
+                                }])
+                                ->get();
+
+        if($taller){
+            $nombreTaller = $taller->nombre;
+        }
+
         $pdf = \App::make('dompdf.wrapper');
         $view = \View::make('pdf.lista_matriculas',compact('nombreTaller','matriculas'))->render();
 

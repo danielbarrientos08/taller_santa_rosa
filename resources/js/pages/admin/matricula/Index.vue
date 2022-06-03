@@ -88,8 +88,9 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="float-right">
-                                            <button type="button" @click="descargarReporte()" class="btn btn-xs btn-light text-danger mt-0"> Descargar Pdf <i class="far fa-lg fa-file-pdf"></i></button>
-                                        </div> 
+                                            <button type="button" @click="descargarReportePdf()" class="btn btn-xs btn-light  mt-0"> Descargar Pdf <i class="text-danger far fa-lg fa-file-pdf"></i></button>
+                                            <button type="button" @click="descargarReporteExcel()" class="btn btn-xs btn-light  mt-0"> Descargar Excel <i class="far fa-lg fa-file-excel text-success"></i></button>
+                                        </div>
                                     </div>
                                 </div>
                             </template>
@@ -282,13 +283,21 @@ export default
                 }
             })
         },
-        descargarReporte(){
+        descargarReportePdf(){
             this.loading = true
 
             let url = base_url +`/admin/matriculas/reportePdf?taller_id=${this.datosFormularioBusqueda.taller_id}&cod_taller=${this.datosFormularioBusqueda.cod_taller}&documento_estudiante=${this.datosFormularioBusqueda.documento_estudiante}&nivel=${this.datosFormularioBusqueda.nivel}&grado=${this.datosFormularioBusqueda.grado}&seccion=${this.datosFormularioBusqueda.seccion}`
-            
+
             window.open(url, '_blank');
             // location.href= url
+            this.loading = false;
+        },
+        descargarReporteExcel(){
+            this.loading = true
+
+            let url = base_url +`/admin/matriculas/reporteExcel?taller_id=${this.datosFormularioBusqueda.taller_id}&cod_taller=${this.datosFormularioBusqueda.cod_taller}&documento_estudiante=${this.datosFormularioBusqueda.documento_estudiante}&nivel=${this.datosFormularioBusqueda.nivel}&grado=${this.datosFormularioBusqueda.grado}&seccion=${this.datosFormularioBusqueda.seccion}`
+
+            location.href= url
             this.loading = false;
         },
         actualizarMatricula(data)
