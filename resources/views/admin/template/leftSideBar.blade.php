@@ -18,6 +18,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ url('admin/talleres') }}">
+                        <i class="la la-user"></i>
+                        <span> Talleres </span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ url('admin/matriculas') }}">
                         <i class="la la-user"></i>
                         <span> Matrículas </span>
