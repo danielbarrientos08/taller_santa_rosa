@@ -72,8 +72,13 @@ class EstudianteController extends Controller
     {
         if($request->ajax())
         {
-            $user = Estudiante::findOrFail($request->estudiante_id);
-            $user->delete();
+            $estudiante = Estudiante::findOrFail($request->estudiante_id);
+            $matricula = Matricula::where('estudiante_id',$estudiante->estudiante_id)->first();
+
+            if($matricula){
+                abort(409,'Existen registro relacionados');
+            }
+            $estudiante->delete();
 
             return response('success',200);
         }
@@ -83,10 +88,10 @@ class EstudianteController extends Controller
     {
         if($request->ajax())
         {
-            $user = Estudiante::findOrFail($id);
+            $estudiante = Estudiante::findOrFail($id);
 
             return response()->json([
-                'response'=> $user
+                'response'=> $estudiante
             ],200);
         }
     }

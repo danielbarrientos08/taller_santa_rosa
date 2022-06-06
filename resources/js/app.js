@@ -40,6 +40,7 @@ Vue.component('apexchart', VueApexCharts)
 Vue.component('login-admin', require('./pages/admin/Login.vue').default);
 Vue.component('login-web', require('./pages/web/Login.vue').default);
 Vue.component('admin-estudiante-index', require('./pages/admin/estudiante/Index.vue').default);
+Vue.component('admin-taller-index', require('./pages/admin/taller/Index.vue').default);
 Vue.component('admin-matricula-index', require('./pages/admin/matricula/Index.vue').default);
 Vue.component('web-matricula-index', require('./pages/web/matricula/Index.vue').default);
 

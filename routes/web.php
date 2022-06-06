@@ -48,6 +48,10 @@ Route::middleware(['auth'])->group(function ()
 /**Rutas para administrador */
 Route::prefix('admin')->group(function ()
 {
+    Route::get('/', function () {
+        return redirect('/admin/panel');
+    });
+
     Route::get('/login', [App\Http\Controllers\Admin\Auth\AuthenticateController::class, 'index'])->name('admin.login');
     Route::post('/login',[App\Http\Controllers\Admin\Auth\AuthenticateController::class, 'login'])->middleware('throttle:5,1');//5 intentos como máximo en 1 minuto
     Route::post('/logout',[App\Http\Controllers\Admin\Auth\AuthenticateController::class, 'logout'])->name('admin.logout');
@@ -62,6 +66,13 @@ Route::prefix('admin')->group(function ()
         Route::put('/estudiantes/actualizar', [App\Http\Controllers\Admin\EstudianteController::class, 'actualizar']);
         Route::delete('/estudiantes/eliminar', [App\Http\Controllers\Admin\EstudianteController::class, 'eliminar']);
         Route::get('/estudiantes/obtener/{id_estudiante}', [App\Http\Controllers\Admin\EstudianteController::class, 'obtener']);
+         /**Rutas admin talleres */
+         Route::get('/talleres', [App\Http\Controllers\Admin\TallerController::class, 'index']);
+         Route::get('/talleres/listar', [App\Http\Controllers\Admin\TallerController::class, 'listar']);
+         Route::post('/talleres/crear', [App\Http\Controllers\Admin\TallerController::class, 'crear']);
+         Route::put('/talleres/actualizar', [App\Http\Controllers\Admin\TallerController::class, 'actualizar']);
+         Route::delete('/talleres/eliminar', [App\Http\Controllers\Admin\TallerController::class, 'eliminar']);
+         Route::get('/talleres/obtener/{id_taller}', [App\Http\Controllers\Admin\TallerController::class, 'obtener']);
 
         /**Matrículas */
         Route::get('/matriculas',[App\Http\Controllers\Admin\MatriculaController::class, 'index']);
