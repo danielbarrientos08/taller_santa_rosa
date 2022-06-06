@@ -19,19 +19,19 @@
                 </li>
                 <li>
                     <a href="{{ url('admin/talleres') }}">
-                        <i class="la la-user"></i>
+                        <i class="la la-cubes"></i>
                         <span> Talleres </span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ url('admin/matriculas') }}">
-                        <i class="la la-user"></i>
+                        <i class=" la la-tags"></i>
                         <span> Matrículas </span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url('admin/estudiantes/cargaMasiva') }}">
-                        <i class="la la-user"></i>
+                    <a href="{{ url('admin/cargaMasiva') }}">
+                        <i class="la la-cloud-upload"></i>
                         <span> Carga de estudiantes </span>
                     </a>
                 </li>

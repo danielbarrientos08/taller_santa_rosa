@@ -109,7 +109,7 @@
 
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                <img src="{{ asset('img/admin/users/default.jpg') }}" alt="user-image" class="rounded-circle">
+                <img src="{{ asset('img/logo-sr.png') }}" alt="user-image" class="rounded-circle">
                 <span class="pro-user-name ml-1">
 
                     {{ Auth::guard('admin')->user()->nombre }} <i class="mdi mdi-chevron-down"></i>
@@ -170,12 +170,12 @@
     <div class="logo-box">
         <a href="{{url('admin/panel')}}" class="logo text-center">
             <span class="logo-lg y-1">
-                {{--  <img src="{{asset ('img/logo1.png')}}" alt="" height="38">  --}}
-                <h2 style="color: #b1c4da;">Santa Rosa</h2>
+                <img src="{{ asset('img/BANNER.png') }}" alt="" height="70">
+                {{--  <h2 style="color: #b1c4da;">Santa Rosa</h2>  --}}
             </span>
             <span class="logo-sm">
-                {{--  <img src="{{ asset('img/logo-sm.svg') }}" alt="" height="25">  --}}
-                <h2 style="color: #b1c4da;">SR</h2>
+                <img src="{{ asset('img/logo-sr.png') }}" alt="" height="50">
+                {{--  <h2 style="color: #b1c4da;">SR</h2>  --}}
             </span>
         </a>
     </div>

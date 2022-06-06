@@ -26,8 +26,14 @@
 
 
                     <div class="row">
-
-                            <form class="row g-3" action="{{url('/admin/estudiantes/cargaMasiva')}}" method="POST" enctype="multipart/form-data">
+                        <div class="col-12">
+                            @if ( Session::has('msg-success'))
+                            <div class="alert alert-success">{{ Session::get('msg-success') }}</div>
+                            @elseif(Session::has('msg-error'))
+                                <div class="alert alert-danger">{{ Session::get('msg-error') }}</div>
+                            @endif    
+                        </div>
+                            <form class="row g-3" action="{{url('/admin/cargaMasiva')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                  <div class="col-auto">
                                      <label for="staticEmail2 " class="">Archivo xlsx</label>
@@ -35,8 +41,10 @@
                                      <input type="file" class="form-control" id="archivo"  name="archivo" >
                                  </div>
                                  <div class="col-auto">
-                                     <button type="submit" class="btn btn-outline-primary mt-3 "> <i class=" la-lg la la-upload"></i> Subir</button>
-                                 </div>
+                                     
+                                    <button type="submit" class="btn btn-outline-primary mt-3 "> <i class=" la-lg la la-upload"></i> Subir</button>
+                                    <a href="{{ url('admin/cargaMasiva/descargarPlantilla') }}" class="btn btn-outline-success mt-3">  <i class="far fa-lg fa-file-excel"></i> Decargar plantilla</a>
+                                </div>
                              </form>
 
                         </div> <!-- end col -->

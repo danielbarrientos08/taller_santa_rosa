@@ -4,12 +4,14 @@
             <div class="card" v-loading="loading"  element-loading-text="Verificando credenciales" >
                 <div class="card-body p-4">
                     <div class="text-center w-75 m-auto">
-                        <!-- <a href="index.html">
-                            <span><img src="assets/images/logo-dark.png" alt="" height="18"></span>
-                        </a> -->
+                        <a href="index.html">
+                              <span><img  v-bind:src="baseUrl+'/img/banner1.png'" alt="" height="80"></span>
+                        </a>
+                        <br>
+                        <br>
                         <h4> PANEL DE CONTROL </h4>
 
-                        <p class="text-muted mb-3 mt-3">Inicie sesíon para acceder al panel de control.</p>
+                        <!-- <p class="text-muted mb-3 mt-3">Inicie sesíon para acceder al panel de control.</p> -->
                     </div>
 
                     <h5 class="auth-title">Iniciar sesión</h5>
@@ -38,7 +40,7 @@
                     </div>
                     <div class="row mt-3">
                         <div class="col-12 text-center">
-                            <p> <a href="#" @click.prevent="forgotPassword()" class="text-muted ml-1">¿Olvidaste tu contraseña?</a></p>
+                            <!-- <p> <a href="#" @click.prevent="forgotPassword()" class="text-muted ml-1">¿Olvidaste tu contraseña?</a></p> -->
                         </div> <!-- end col -->
                     </div>
 
